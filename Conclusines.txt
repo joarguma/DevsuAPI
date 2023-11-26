@@ -1,0 +1,9 @@
+Se pudo observar que el API https://demoblaze.com/ de cara a:
+
+Pruebas manuales:
+- No se observa que tiene metodos de seguridad
+- Las respuestas debiesen tener un KEY por ejemplo "Succsefull" : true / false. Esto es para los casos que se esta intentando crear un usuario ya existente o hacer un logn incorrecto se pueda identificar mas practicamente.
+- No esta validando los tipos de datos enviados hacia el serivcio. 
+
+Pruebas Automaticas:
+- El tiempo de respuesta al momento de realizar varias llamadas al mismo tiempo

@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "7fd4e0fe-fc77-4e67-bf47-1b0b5897c55a",
+		"name": "DevsuAPi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21777720"
+	},
+	"item": [
+		{
+			"name": "signUp OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Get body response\r",
+							"var jsondata = pm.response.json();\r",
+							"\r",
+							"//validate response code\r",
+							"response200.resp200();\r",
+							"//Validate Resp Time\r",
+							"responsetime.resptime();\r",
+							"\r",
+							"\r",
+							"\r",
+							"//Validate if response BODY is as expect\r",
+							"pm.test(\"Validate body response\", function(){\r",
+							"\r",
+							"   pm.expect(jsondata).to.be.eqls(\"\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let no = parseInt(pm.collectionVariables.get(\"number\"));\r",
+							"//Generate new username\r",
+							"pm.collectionVariables.set(\"number\",(no+1));\r",
+							"pm.collectionVariables.set(\"gusername\",( pm.collectionVariables.get(\"username\") + pm.collectionVariables.get(\"number\")));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"{{gusername}}\",\r\n    \"password\":\"abcd1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User exist signUp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Get body response\r",
+							"var jsondata = pm.response.json();\r",
+							"\r",
+							"//validate response code\r",
+							"response200.resp200();\r",
+							"//Validate Resp Time\r",
+							"responsetime.resptime();\r",
+							"\r",
+							"let no = parseInt(pm.collectionVariables.get(\"number\"));\r",
+							"\r",
+							"//Validate if response BODY is as expect\r",
+							"pm.test(\"Validate body response\", function(){\r",
+							"\r",
+							"   pm.expect(jsondata.errorMessage).to.exists.and.to.be.a(\"string\");\r",
+							"   pm.expect(jsondata.errorMessage).to.be.eqls(\"This user already exist.\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"{{username}}\",\r\n    \"password\":\"abcd1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Get body response\r",
+							"var jsondata = pm.response.json();\r",
+							"\r",
+							"//validate response code\r",
+							"response200.resp200();\r",
+							"//Validate Resp Time\r",
+							"responsetime.resptime();\r",
+							"\r",
+							"let no = parseInt(pm.collectionVariables.get(\"number\"));\r",
+							"\r",
+							"//Validate if response BODY is as expect\r",
+							"pm.test(\"Validate body response\", function(){\r",
+							"\r",
+							"   pm.expect(jsondata).to.contains(\"Auth_token:\");\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"{{gusername}}\",\r\n    \"password\":\"abcd1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Wrong",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Get body response\r",
+							"var jsondata = pm.response.json();\r",
+							"\r",
+							"//validate response code\r",
+							"response200.resp200();\r",
+							"//Validate Resp Time\r",
+							"responsetime.resptime();\r",
+							"\r",
+							"let no = parseInt(pm.collectionVariables.get(\"number\"));\r",
+							"\r",
+							"//Validate if response BODY is as expect\r",
+							"pm.test(\"Validate body response\", function(){\r",
+							"\r",
+							"   pm.expect(jsondata.errorMessage).to.exists.and.to.be.a(\"string\");\r",
+							"   pm.expect(jsondata.errorMessage).to.be.eqls(\"Wrong password.\");\r",
+							"\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"{{gusername}}\",\r\n    \"password\":\"abcd1234xxx\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"response200 = {",
+					"    resp200: function () {",
+					"        var jsondata = pm.response.json();",
+					"        pm.test(\"Respuesta: 200\", function () {",
+					"            pm.expect(pm.response.code).to.have.eql(200);",
+					"",
+					"        });",
+					"    }",
+					"};",
+					"",
+					"response400 = {",
+					"    resp400: function () {",
+					"        var jsondata = pm.response.json();",
+					"        pm.test(\"Respuesta No satisfactoria: 400 (NO ACTUALIZO)\", function () {",
+					"            pm.expect(pm.response.code).to.have.eql(400);",
+					"            pm.expect(jsondata.successful).to.be.eqls(false);",
+					"",
+					"        });",
+					"    }",
+					"};",
+					"",
+					"response404 = {",
+					"    resp404: function () {",
+					"        pm.test(\"Respuesta Not found: 404\", function () {",
+					"             pm.expect(pm.response).to.have.status(404);",
+					"",
+					"        });",
+					"    }",
+					"};",
+					"",
+					"responsetime = {",
+					"    resptime: function () {",
+					"            pm.test(\"Tiempo de respuesta menor a 1 segundo\", function () {",
+					"            pm.expect(pm.response.responseTime).to.be.below(1000);",
+					"        });",
+					"",
+					"    }",
+					"",
+					"};"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "username",
+			"value": "joarguma",
+			"type": "string"
+		},
+		{
+			"key": "number",
+			"value": "200",
+			"type": "string"
+		},
+		{
+			"key": "gusername",
+			"value": "joarguma200",
+			"type": "string"
+		}
+	]
+}
